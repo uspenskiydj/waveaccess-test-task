@@ -1,12 +1,14 @@
 package com.waveaccess.waveaccesstesttask.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
 
+@Entity
+@Table(name = "schedules")
 public class Schedule extends AbstractBaseEntity {
 
     @Column(name = "date_time", nullable = false)
@@ -14,13 +16,15 @@ public class Schedule extends AbstractBaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateTime;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "schedule")
-    @JsonManagedReference
-    private List<Room> rooms;
+    @ManyToOne()
+    @JoinColumn(name = "room_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Room room;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "schedule")
-    @JsonManagedReference
-    private List<Talk> talks;
+    @ManyToOne()
+    @JoinColumn(name = "talk_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Talk talk;
 
     public Schedule() {
     }
@@ -38,20 +42,20 @@ public class Schedule extends AbstractBaseEntity {
         this.dateTime = dateTime;
     }
 
-    public List<Room> getRooms() {
-        return rooms;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
-    public List<Talk> getTalks() {
-        return talks;
+    public Talk getTalk() {
+        return talk;
     }
 
-    public void setTalks(List<Talk> talks) {
-        this.talks = talks;
+    public void setTalk(Talk talk) {
+        this.talk = talk;
     }
 
     @Override
