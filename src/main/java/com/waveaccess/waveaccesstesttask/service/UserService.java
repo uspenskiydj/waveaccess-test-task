@@ -7,7 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import java.util.List;
-import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.checkNotFoundWithId;
+import static com.waveaccess.waveaccesstesttask.util.UserUtil.prepareToSave;
+import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.*;
 
 @Service
 public class UserService {
@@ -20,8 +21,9 @@ public class UserService {
 
     public User create(User user) {
         log.info("create from {}", user);
+        checkNew(user);
         Assert.notNull(user, "user must not be null");
-        return repository.save(user);
+        return repository.save(prepareToSave(user));
     }
 
     public void delete(Integer id) {
@@ -39,9 +41,14 @@ public class UserService {
         return repository.getAll();
     }
 
-    public void update(User user, int id) {
-        log.info("update {} with id={}", user, id);
+    public void update(User user) {
+        log.info("update {} with id={}", user, user.getId());
         Assert.notNull(user, "user must not be null");
-        checkNotFoundWithId(repository.save(user), id);
+        checkNotFoundWithId(repository.save(prepareToSave(user)), user.getId());
+    }
+
+    public User getByEmail(String email) {
+        Assert.notNull(email, "email must not be null");
+        return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 }

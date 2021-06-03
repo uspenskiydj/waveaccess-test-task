@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.assureIdConsistent;
 
 @RestController
 @RequestMapping(value = UserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,8 +48,13 @@ public class UserRestController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody User user, @PathVariable int id) {
-        service.update(user, id);
+    public void update(@RequestBody User user, @PathVariable int id) {
+        assureIdConsistent(user, id);
+        service.update(user);
     }
 
+    @GetMapping("/by")
+    public User getByMail(@RequestParam String email) {
+        return service.getByEmail(email);
+    }
 }

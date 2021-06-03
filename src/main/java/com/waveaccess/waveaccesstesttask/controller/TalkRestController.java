@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.assureIdConsistent;
 
 @RestController
 @RequestMapping(value = TalkRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,6 +49,7 @@ public class TalkRestController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody Talk talk, @PathVariable int id) {
-        service.update(talk, id);
+        assureIdConsistent(talk, id);
+        service.update(talk);
     }
 }

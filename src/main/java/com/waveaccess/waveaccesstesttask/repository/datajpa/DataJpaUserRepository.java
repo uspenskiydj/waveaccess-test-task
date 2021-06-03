@@ -34,4 +34,9 @@ public class DataJpaUserRepository implements UserRepository {
     public List<User> getAll() {
         return crudUserRepository.findAll();
     }
+
+    @Override
+    public User getByEmail(String email) {
+        return crudUserRepository.getByEmail(email);
+    }
 }

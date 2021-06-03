@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import java.util.List;
+import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.checkNew;
 import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -20,6 +21,7 @@ public class TalkService {
 
     public Talk create(Talk talk) {
         log.info("create from {}", talk);
+        checkNew(talk);
         Assert.notNull(talk, "talk must not be null");
         return repository.save(talk);
     }
@@ -39,8 +41,8 @@ public class TalkService {
         return repository.getAll();
     }
 
-    public void update(Talk talk, int id) {
-        log.info("update {} with id={}", talk, id);
+    public void update(Talk talk) {
+        log.info("update {} with id={}", talk, talk.getId());
         Assert.notNull(talk, "talk must not be null");
         checkNotFoundWithId(repository.save(talk), talk.getId());
     }

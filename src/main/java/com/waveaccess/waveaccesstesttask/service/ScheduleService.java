@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import java.util.List;
+
+import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.checkNew;
 import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -20,6 +22,7 @@ public class ScheduleService {
 
     public Schedule create(Schedule schedule) {
         log.info("create from {}", schedule);
+        checkNew(schedule);
         Assert.notNull(schedule, "schedule must not be null");
         return repository.save(schedule);
     }
@@ -39,8 +42,8 @@ public class ScheduleService {
         return repository.getAll();
     }
 
-    public void update(Schedule schedule, int id) {
-        log.info("update {} with id={}", schedule, id);
+    public void update(Schedule schedule) {
+        log.info("update {} with id={}", schedule, schedule.getId());
         Assert.notNull(schedule, "schedule must not be null");
         checkNotFoundWithId(repository.save(schedule), schedule.getId());
     }

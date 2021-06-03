@@ -11,6 +11,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.assureIdConsistent;
+import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.checkNew;
 
 @RestController
 @RequestMapping(value = RoomRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,6 +50,7 @@ public class RoomRestController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody Room room, @PathVariable int id) {
-        service.update(room, id);
+        assureIdConsistent(room, id);
+        service.update(room);
     }
 }
