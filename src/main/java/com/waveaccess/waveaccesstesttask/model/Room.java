@@ -14,6 +14,10 @@ public class Room extends AbstractNamedEntity {
         super(id, name);
     }
 
+    public Room(Room room) {
+        this(room.getId(), room.getName());
+    }
+
     @Override
     public String toString() {
         return "Room{" +

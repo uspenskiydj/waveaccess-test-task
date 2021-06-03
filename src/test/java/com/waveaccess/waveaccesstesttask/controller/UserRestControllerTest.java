@@ -7,8 +7,9 @@ import com.waveaccess.waveaccesstesttask.util.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static com.waveaccess.waveaccesstesttask.TestUtil.writeValue;
+import static com.waveaccess.waveaccesstesttask.TestUtil.*;
 import static com.waveaccess.waveaccesstesttask.testdata.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -16,11 +17,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class UserRestControllerTest extends AbstractControllerTest {
-
     private static final String REST_URL = UserRestController.REST_URL + '/';
 
     @Autowired
-    private UserService userService;
+    private UserService service;
 
     @Test
     void get() throws Exception {
@@ -51,7 +51,7 @@ class UserRestControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.delete(REST_URL + LISTENER_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertThrows(NotFoundException.class, () -> userService.get(LISTENER_ID));
+        assertThrows(NotFoundException.class, () -> service.get(LISTENER_ID));
     }
 
     @Test
@@ -69,7 +69,7 @@ class UserRestControllerTest extends AbstractControllerTest {
                 .content(writeValue(updated)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        USER_MATCHER.assertMatch(userService.get(LISTENER_ID), updated);
+        USER_MATCHER.assertMatch(service.get(LISTENER_ID), updated);
     }
 
     @Test
@@ -78,5 +78,20 @@ class UserRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(USER_MATCHER.contentJson(ADMIN, LISTENER, SPEAKER));
+    }
+
+    @Test
+    void createWithLocation() throws Exception {
+        User newUser = getNew();
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(writeAdditionProps(newUser,"password", "newPass")))
+                .andExpect(status().isCreated());
+
+        User created = readFromJson(action, User.class);
+        int newId = created.getId();
+        newUser.setId(newId);
+        USER_MATCHER.assertMatch(created, newUser);
+        USER_MATCHER.assertMatch(service.get(newId), newUser);
     }
 }

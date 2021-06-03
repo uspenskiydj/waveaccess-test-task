@@ -34,6 +34,10 @@ public class Schedule extends AbstractBaseEntity {
         this.dateTime = dateTime;
     }
 
+    public Schedule(Schedule schedule) {
+        this(schedule.getId(), schedule.getDateTime());
+    }
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
