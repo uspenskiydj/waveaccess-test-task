@@ -5,6 +5,8 @@ import com.waveaccess.waveaccesstesttask.model.Schedule;
 import java.time.LocalDateTime;
 import java.time.Month;
 import static com.waveaccess.waveaccesstesttask.model.AbstractBaseEntity.START_SEQ;
+import static com.waveaccess.waveaccesstesttask.testdata.RoomTestData.*;
+import static com.waveaccess.waveaccesstesttask.testdata.TalkTestData.*;
 
 public class ScheduleTestData {
     public static final TestMatcher<Schedule> SCHEDULE_MATCHER = TestMatcher.usingIgnoringFieldsComparator(Schedule.class, "room", "talk");
@@ -18,12 +20,14 @@ public class ScheduleTestData {
     public static final Schedule SCHEDULE3 = new Schedule(SCHEDULE3_ID, LocalDateTime.of(2020, Month.JANUARY, 31, 10, 0));
 
     public static Schedule getNew() {
-        return new Schedule(null, LocalDateTime.of(2020, Month.FEBRUARY, 1, 18, 0));
+        return new Schedule(null, LocalDateTime.of(2020, Month.FEBRUARY, 1, 18, 0), ROOM1, TALK2);
     }
 
     public static Schedule getUpdated() {
         Schedule updated = new Schedule(SCHEDULE1);
         updated.setDateTime(LocalDateTime.of(2020, Month.FEBRUARY, 2, 19, 0));
+        updated.setRoom(ROOM2);
+        updated.setTalk(TALK3);
         return updated;
     }
 }

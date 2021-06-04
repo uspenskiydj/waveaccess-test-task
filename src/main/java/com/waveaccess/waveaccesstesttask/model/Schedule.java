@@ -1,5 +1,6 @@
 package com.waveaccess.waveaccesstesttask.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "schedules")
+@Table(name = "schedules", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_time", "room_id"}, name = "date_time_rooms_idx")})
 public class Schedule extends AbstractBaseEntity {
 
     @Column(name = "date_time", nullable = false)
@@ -19,11 +20,13 @@ public class Schedule extends AbstractBaseEntity {
     @ManyToOne()
     @JoinColumn(name = "room_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonManagedReference(value="schedule-room")
     private Room room;
 
     @ManyToOne()
     @JoinColumn(name = "talk_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonManagedReference(value="schedule-talk")
     private Talk talk;
 
     public Schedule() {
@@ -32,6 +35,13 @@ public class Schedule extends AbstractBaseEntity {
     public Schedule(Integer id, LocalDateTime dateTime) {
         super(id);
         this.dateTime = dateTime;
+    }
+
+    public Schedule(Integer id, LocalDateTime dateTime, Room room, Talk talk) {
+        super(id);
+        this.dateTime = dateTime;
+        this.room = room;
+        this.talk = talk;
     }
 
     public Schedule(Schedule schedule) {

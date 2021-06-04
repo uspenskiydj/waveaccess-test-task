@@ -1,10 +1,7 @@
 package com.waveaccess.waveaccesstesttask;
 
-import org.springframework.test.web.servlet.ResultMatcher;
 import java.util.List;
 import java.util.function.BiConsumer;
-import static com.waveaccess.waveaccesstesttask.TestUtil.readFromJsonMvcResult;
-import static com.waveaccess.waveaccesstesttask.TestUtil.readListFromJsonMvcResult;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestMatcher<T> {
@@ -47,17 +44,4 @@ public class TestMatcher<T> {
         iterableAssertion.accept(actual, expected);
     }
 
-
-    public ResultMatcher contentJson(T expected) {
-        return result -> assertMatch(readFromJsonMvcResult(result, clazz), expected);
-    }
-
-    @SafeVarargs
-    public final ResultMatcher contentJson(T... expected) {
-        return contentJson(List.of(expected));
-    }
-
-    public ResultMatcher contentJson(Iterable<T> expected) {
-        return result -> assertMatch(readListFromJsonMvcResult(result, clazz), expected);
-    }
 }

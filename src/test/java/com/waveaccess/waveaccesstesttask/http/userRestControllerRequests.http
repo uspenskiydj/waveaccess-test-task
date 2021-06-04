@@ -1,0 +1,38 @@
+GET http://localhost:8080/rest/users
+###
+GET http://localhost:8080/rest/users/100000
+###
+
+POST http://localhost:8080/rest/users
+Content-Type: application/json
+{
+   "name": ""
+}
+
+//    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<User> createWithLocation(@Valid @RequestBody User user) {
+//        User created = service.create(user);
+//        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                .path(REST_URL + "/{id}")
+//                .buildAndExpand(created.getId()).toUri();
+//        return ResponseEntity.created(uriOfNewResource).body(created);
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void delete(@PathVariable int id) {
+//        service.delete(id);
+//    }
+//
+//    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void update(@RequestBody User user, @PathVariable int id) {
+//        assureIdConsistent(user, id);
+//        service.update(user);
+//    }
+//
+//    @GetMapping("/by")
+//    public User getByMail(@RequestParam String email) {
+//        return service.getByEmail(email);
+//    }
+//}

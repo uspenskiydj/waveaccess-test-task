@@ -5,7 +5,7 @@ import com.waveaccess.waveaccesstesttask.model.Room;
 import static com.waveaccess.waveaccesstesttask.model.AbstractBaseEntity.START_SEQ;
 
 public class RoomTestData {
-    public static final TestMatcher<Room> ROOM_MATCHER = TestMatcher.usingEqualsComparator(Room.class);
+    public static final TestMatcher<Room> ROOM_MATCHER = TestMatcher.usingIgnoringFieldsComparator(Room.class, "schedules");
 
     public static final int ROOM1_ID = START_SEQ + 3;
     public static final int ROOM2_ID = START_SEQ + 4;

@@ -3,11 +3,10 @@ package com.waveaccess.waveaccesstesttask.testdata;
 import com.waveaccess.waveaccesstesttask.TestMatcher;
 import com.waveaccess.waveaccesstesttask.model.Role;
 import com.waveaccess.waveaccesstesttask.model.User;
-import java.util.Collections;
 import static com.waveaccess.waveaccesstesttask.model.AbstractBaseEntity.START_SEQ;
 
 public class UserTestData {
-    public static final TestMatcher<User> USER_MATCHER = TestMatcher.usingIgnoringFieldsComparator(User.class, "password");
+    public static final TestMatcher<User> USER_MATCHER = TestMatcher.usingIgnoringFieldsComparator(User.class, "password", "talks");
 
     public static final int ADMIN_ID = START_SEQ;
     public static final int LISTENER_ID = START_SEQ + 1;
@@ -27,7 +26,7 @@ public class UserTestData {
         updated.setEmail("update@gmail.com");
         updated.setName("updatedName");
         updated.setPassword("updatedPass");
-        updated.setRoles(Collections.singletonList(Role.SPEAKER));
+        updated.setRole(Role.SPEAKER);
         return updated;
     }
 }
