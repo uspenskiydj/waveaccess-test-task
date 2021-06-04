@@ -1,0 +1,19 @@
+GET http://localhost:8080/rest/rooms
+###
+GET http://localhost:8080/rest/rooms/100003
+###
+POST http://localhost:8080/rest/rooms
+Content-Type: application/json
+
+{
+  "name":"newName"
+}
+###
+PUT http://localhost:8080/rest/rooms/100003
+Content-Type: application/json
+
+{
+  "name":"updatedName"
+}
+###
+DELETE http://localhost:8080/rest/rooms/100004

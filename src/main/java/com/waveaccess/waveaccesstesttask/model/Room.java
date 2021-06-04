@@ -1,6 +1,6 @@
 package com.waveaccess.waveaccesstesttask.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -11,7 +11,7 @@ import java.util.Set;
 public class Room extends AbstractNamedEntity {
 
     @OneToMany(mappedBy = "room")
-    @JsonBackReference(value="schedule-room")
+    @JsonIgnore
     private Set<Schedule> schedules;
 
     public Room() {

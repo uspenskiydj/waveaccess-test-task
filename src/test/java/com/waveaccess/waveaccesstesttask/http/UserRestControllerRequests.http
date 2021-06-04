@@ -1,0 +1,29 @@
+GET http://localhost:8080/rest/users
+###
+GET http://localhost:8080/rest/users/100001
+###
+GET http://localhost:8080/rest/users/by?email=speaker@gmail.com
+###
+POST http://localhost:8080/rest/users
+Content-Type: application/json
+
+{
+  "name": "newName",
+  "email": "new@gmail.com",
+  "password": "newPass",
+  "role": "LISTENER",
+  "talks": [{"id":100006,"name":"Доклад 1","durationMinutes":30}]
+}
+###
+PUT http://localhost:8080/rest/users/100001
+Content-Type: application/json
+
+{
+  "name": "updatedName",
+  "email": "update@gmail.com",
+  "password": "updatedPass",
+  "role": "SPEAKER",
+  "talks": [{"id":100007,"name":"Доклад 2","durationMinutes":60}]
+}
+###
+DELETE http://localhost:8080/rest/users/100002

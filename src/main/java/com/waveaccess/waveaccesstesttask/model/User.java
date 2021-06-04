@@ -1,6 +1,5 @@
 package com.waveaccess.waveaccesstesttask.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -33,7 +32,6 @@ public class User extends AbstractNamedEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "talk_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "talk_id"}, name = "user_talks_idx")})
-    @JsonManagedReference(value="user-talk")
     private Set<Talk> talks;
 
     public User() {

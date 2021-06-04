@@ -1,6 +1,6 @@
 package com.waveaccess.waveaccesstesttask.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Set;
 
@@ -12,11 +12,11 @@ public class Talk extends AbstractNamedEntity {
     private Integer durationMinutes;
 
     @ManyToMany(mappedBy = "talks")
-    @JsonBackReference(value="user-talk")
+    @JsonIgnore
     private Set<User> users;
 
     @OneToMany(mappedBy = "talk")
-    @JsonBackReference(value="schedule-talk")
+    @JsonIgnore
     private Set<Schedule> schedules;
 
     public Talk() {

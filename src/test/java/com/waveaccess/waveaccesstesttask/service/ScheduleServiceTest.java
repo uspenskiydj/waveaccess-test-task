@@ -39,6 +39,7 @@ class ScheduleServiceTest extends AbstractServiceTest {
     void update() {
         Schedule updated = getUpdated();
         service.update(updated);
+        Schedule s = service.get(SCHEDULE1_ID);
         SCHEDULE_MATCHER.assertMatch(service.get(SCHEDULE1_ID), getUpdated());
     }
 

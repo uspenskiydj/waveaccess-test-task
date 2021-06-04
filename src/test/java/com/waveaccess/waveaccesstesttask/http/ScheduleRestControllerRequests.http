@@ -1,0 +1,23 @@
+GET http://localhost:8080/rest/schedules
+###
+GET http://localhost:8080/rest/schedules/100009
+###
+POST http://localhost:8080/rest/schedules
+Content-Type: application/json
+
+{
+  "dateTime":"2020-02-01 18:00",
+  "room":{"id":100003,"name":"Комната 1"},
+  "talk":{"id":100007,"name":"Доклад 2","durationMinutes":60}
+}
+###
+PUT http://localhost:8080/rest/schedules/100009
+Content-Type: application/json
+
+{
+  "dateTime":"2020-02-02 19:00",
+  "room":{"id":100004,"name":"Комната 2"},
+  "talk":{"id":100008,"name":"Доклад 3","durationMinutes":90}
+}
+###
+DELETE http://localhost:8080/rest/schedules/100010
