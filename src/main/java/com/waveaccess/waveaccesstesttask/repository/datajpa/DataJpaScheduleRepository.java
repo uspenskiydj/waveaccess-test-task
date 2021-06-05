@@ -1,7 +1,9 @@
 package com.waveaccess.waveaccesstesttask.repository.datajpa;
 
+import com.waveaccess.waveaccesstesttask.model.Room;
 import com.waveaccess.waveaccesstesttask.model.Schedule;
 import com.waveaccess.waveaccesstesttask.repository.ScheduleRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -33,5 +35,10 @@ public class DataJpaScheduleRepository implements ScheduleRepository {
     @Override
     public List<Schedule> getAll() {
         return crudScheduleRepository.findAll();
+    }
+
+    @Override
+    public List<Schedule> getAllByRoom(Room room) {
+        return crudScheduleRepository.getAllByRoom(room);
     }
 }

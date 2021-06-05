@@ -44,7 +44,6 @@ CREATE TABLE schedules
     date_time        DATETIME       NOT NULL,
     room_id          INTEGER,
     talk_id          INTEGER,
-    CONSTRAINT date_time_rooms_idx UNIQUE (date_time, room_id),
     FOREIGN KEY (room_id) REFERENCES rooms (id) ON DELETE CASCADE,
     FOREIGN KEY (talk_id) REFERENCES talks (id) ON DELETE CASCADE
 );

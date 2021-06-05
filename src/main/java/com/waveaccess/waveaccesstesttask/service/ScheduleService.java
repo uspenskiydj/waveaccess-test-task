@@ -1,5 +1,6 @@
 package com.waveaccess.waveaccesstesttask.service;
 
+import com.waveaccess.waveaccesstesttask.model.Room;
 import com.waveaccess.waveaccesstesttask.model.Schedule;
 import com.waveaccess.waveaccesstesttask.repository.ScheduleRepository;
 import org.slf4j.Logger;
@@ -7,8 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import java.util.List;
-import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.checkNew;
-import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.checkNotFoundWithId;
+import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.*;
 
 @Service
 public class ScheduleService {
@@ -21,8 +21,9 @@ public class ScheduleService {
 
     public Schedule create(Schedule schedule) {
         log.info("create from {}", schedule);
-        checkNew(schedule);
         Assert.notNull(schedule, "schedule must not be null");
+        checkNew(schedule);
+        checkIfBusyDateTime(schedule, getAllByRoom(schedule.getRoom()));
         return repository.save(schedule);
     }
 
@@ -41,9 +42,15 @@ public class ScheduleService {
         return repository.getAll();
     }
 
+    public List<Schedule> getAllByRoom(Room room) {
+        log.info("getAllByRoom");
+        return repository.getAllByRoom(room);
+    }
+
     public void update(Schedule schedule) {
         log.info("update {} with id={}", schedule, schedule.getId());
         Assert.notNull(schedule, "schedule must not be null");
+        checkIfBusyDateTime(schedule, getAllByRoom(schedule.getRoom()));
         checkNotFoundWithId(repository.save(schedule), schedule.getId());
     }
 }

@@ -1,11 +1,16 @@
 package com.waveaccess.waveaccesstesttask.service;
 
 import com.waveaccess.waveaccesstesttask.model.Schedule;
+import com.waveaccess.waveaccesstesttask.util.exception.BusyDateTimeException;
 import com.waveaccess.waveaccesstesttask.util.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
+import static com.waveaccess.waveaccesstesttask.testdata.RoomTestData.ROOM3;
 import static com.waveaccess.waveaccesstesttask.testdata.ScheduleTestData.*;
+import static com.waveaccess.waveaccesstesttask.testdata.TalkTestData.TALK2;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScheduleServiceTest extends AbstractServiceTest {
@@ -24,6 +29,12 @@ class ScheduleServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    void busyDateTimeCreate() {
+        assertThrows(BusyDateTimeException.class, () ->
+                service.create(new Schedule(null, LocalDateTime.of(2020, Month.JANUARY, 31, 11, 30), ROOM3, TALK2)));
+    }
+
+    @Test
     void delete() {
         service.delete(SCHEDULE1_ID);
         assertThrows(NotFoundException.class, () -> service.get(SCHEDULE1_ID));
@@ -39,7 +50,6 @@ class ScheduleServiceTest extends AbstractServiceTest {
     void update() {
         Schedule updated = getUpdated();
         service.update(updated);
-        Schedule s = service.get(SCHEDULE1_ID);
         SCHEDULE_MATCHER.assertMatch(service.get(SCHEDULE1_ID), getUpdated());
     }
 
