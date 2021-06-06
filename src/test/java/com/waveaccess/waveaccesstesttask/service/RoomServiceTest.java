@@ -38,7 +38,7 @@ class RoomServiceTest extends AbstractServiceTest {
     @Test
     void update() {
         Room updated = getUpdated();
-        service.update(updated);
+        service.update(updated, updated.getId());
         ROOM_MATCHER.assertMatch(service.get(ROOM1_ID), getUpdated());
     }
 

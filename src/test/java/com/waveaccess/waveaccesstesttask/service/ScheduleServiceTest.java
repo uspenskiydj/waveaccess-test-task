@@ -49,7 +49,7 @@ class ScheduleServiceTest extends AbstractServiceTest {
     @Test
     void update() {
         Schedule updated = getUpdated();
-        service.update(updated);
+        service.update(updated, updated.getId());
         SCHEDULE_MATCHER.assertMatch(service.get(SCHEDULE1_ID), getUpdated());
     }
 

@@ -47,9 +47,10 @@ public class ScheduleService {
         return repository.getAllByRoom(room);
     }
 
-    public void update(Schedule schedule) {
+    public void update(Schedule schedule, int id) {
         log.info("update {} with id={}", schedule, schedule.getId());
         Assert.notNull(schedule, "schedule must not be null");
+        assureIdConsistent(schedule, id);
         checkIfBusyDateTime(schedule, getAllByRoom(schedule.getRoom()));
         checkNotFoundWithId(repository.save(schedule), schedule.getId());
     }

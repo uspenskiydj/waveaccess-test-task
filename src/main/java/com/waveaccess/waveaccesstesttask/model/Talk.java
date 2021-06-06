@@ -15,7 +15,7 @@ public class Talk extends AbstractNamedEntity {
     @JsonIgnore
     private Set<User> users;
 
-    @OneToMany(mappedBy = "talk")
+    @OneToMany(mappedBy = "talk", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Set<Schedule> schedules;
 

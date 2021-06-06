@@ -12,8 +12,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class UserRestControllerTest extends AbstractControllerTest {
-    private static final String REST_URL = UserRestController.REST_URL + '/';
+class AdminRestControllerTest extends AbstractControllerTest {
+    private static final String REST_URL = AdminRestController.REST_URL + '/';
 
     @Autowired
     private UserService service;

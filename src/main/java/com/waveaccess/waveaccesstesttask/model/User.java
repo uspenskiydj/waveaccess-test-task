@@ -27,7 +27,7 @@ public class User extends AbstractNamedEntity {
     @Column(name = "role")
     private Role role;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(name = "user_talks",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "talk_id"),

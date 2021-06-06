@@ -49,7 +49,6 @@ public class RoomRestController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody Room room, @PathVariable int id) {
-        assureIdConsistent(room, id);
-        service.update(room);
+        service.update(room, id);
     }
 }

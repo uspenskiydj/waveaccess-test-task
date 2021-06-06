@@ -38,7 +38,7 @@ class TalkServiceTest extends AbstractServiceTest {
     @Test
     void update() {
         Talk updated = getUpdated();
-        service.update(updated);
+        service.update(updated, updated.getId());
         TALK_MATCHER.assertMatch(service.get(TALK1_ID), getUpdated());
     }
 

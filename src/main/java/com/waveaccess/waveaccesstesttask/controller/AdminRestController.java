@@ -14,9 +14,9 @@ import java.util.List;
 import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.assureIdConsistent;
 
 @RestController
-@RequestMapping(value = UserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserRestController {
-    static final String REST_URL = "/rest/users";
+@RequestMapping(value = AdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class AdminRestController {
+    static final String REST_URL = "/rest/admin/users";
 
     @Autowired
     private UserService service;
@@ -35,8 +35,7 @@ public class UserRestController {
     public ResponseEntity<User> createWithLocation(@Valid @RequestBody User user) {
         User created = service.create(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
+                .path(REST_URL + "/{id}").buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
@@ -49,8 +48,7 @@ public class UserRestController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody User user, @PathVariable int id) {
-        assureIdConsistent(user, id);
-        service.update(user);
+        service.update(user, id);
     }
 
     @GetMapping("/by")

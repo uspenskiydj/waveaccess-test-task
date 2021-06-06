@@ -16,7 +16,7 @@ import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.assureIdCons
 @RestController
 @RequestMapping(value = ScheduleRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ScheduleRestController {
-    static final String REST_URL = "/rest/schedules";
+    static final String REST_URL = "/rest/profile/schedules";
 
     @Autowired
     private ScheduleService service;
@@ -50,6 +50,6 @@ public class ScheduleRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody Schedule schedule, @PathVariable int id) {
         assureIdConsistent(schedule, id);
-        service.update(schedule);
+        service.update(schedule, id);
     }
 }

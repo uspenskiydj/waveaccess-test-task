@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import java.util.List;
-import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.checkNew;
-import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.checkNotFoundWithId;
+
+import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.*;
 
 @Service
 public class RoomService {
@@ -41,9 +41,10 @@ public class RoomService {
         return repository.getAll();
     }
 
-    public void update(Room room) {
+    public void update(Room room, int id) {
         log.info("update {} with id={}", room, room.getId());
         Assert.notNull(room, "room must not be null");
+        assureIdConsistent(room, id);
         checkNotFoundWithId(repository.save(room), room.getId());
     }
 }

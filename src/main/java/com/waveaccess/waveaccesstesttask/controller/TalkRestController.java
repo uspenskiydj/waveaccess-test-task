@@ -11,12 +11,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+
+import static com.waveaccess.waveaccesstesttask.security.SecurityUtil.authUserId;
 import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.assureIdConsistent;
 
 @RestController
 @RequestMapping(value = TalkRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class TalkRestController {
-    static final String REST_URL = "/rest/talks";
+    static final String REST_URL = "/rest/profile/talks";
 
     @Autowired
     private TalkService service;
@@ -49,7 +51,6 @@ public class TalkRestController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody Talk talk, @PathVariable int id) {
-        assureIdConsistent(talk, id);
-        service.update(talk);
+        service.update(talk, id);
     }
 }

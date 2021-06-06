@@ -1,6 +1,7 @@
 package com.waveaccess.waveaccesstesttask.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -10,7 +11,7 @@ import java.util.Set;
 @Table(name = "rooms")
 public class Room extends AbstractNamedEntity {
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Set<Schedule> schedules;
 
