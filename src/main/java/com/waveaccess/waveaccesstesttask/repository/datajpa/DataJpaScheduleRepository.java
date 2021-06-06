@@ -11,25 +11,36 @@ import java.util.List;
 @Repository
 public class DataJpaScheduleRepository implements ScheduleRepository {
     private final CrudScheduleRepository crudScheduleRepository;
+    private final CrudUserRepository crudUserRepository;
 
-    public DataJpaScheduleRepository(CrudScheduleRepository crudScheduleRepository) {
+    public DataJpaScheduleRepository(CrudScheduleRepository crudScheduleRepository, CrudUserRepository crudUserRepository) {
         this.crudScheduleRepository = crudScheduleRepository;
+        this.crudUserRepository = crudUserRepository;
     }
 
     @Override
     @Transactional
-    public Schedule save(Schedule schedule) {
+    public Schedule save(Schedule schedule, int userId) {
+        if (!(schedule.getId() == null) && get(schedule.getId(), userId) == null) {
+            return null;
+        }
+        schedule.setUser(crudUserRepository.getById(userId));
         return crudScheduleRepository.save(schedule);
     }
 
     @Override
-    public boolean delete(Integer id) {
-        return crudScheduleRepository.delete(id) != 0;
+    public boolean delete(Integer id, int userId) {
+        return crudScheduleRepository.deleteByUserIdAndId(userId, id) != 0;
     }
 
     @Override
-    public Schedule get(Integer id) {
-        return crudScheduleRepository.findById(id).orElse(null);
+    public Schedule get(Integer id, int userId) {
+        return crudScheduleRepository.findByUserIdAndId(userId, id);
+    }
+
+    @Override
+    public List<Schedule> getAll(int userId) {
+        return crudScheduleRepository.findByUserId(userId);
     }
 
     @Override

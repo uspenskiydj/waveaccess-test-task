@@ -6,11 +6,13 @@ import com.waveaccess.waveaccesstesttask.model.Schedule;
 import java.util.List;
 
 public interface ScheduleRepository {
-    Schedule save(Schedule bank);
+    Schedule save(Schedule bank, int userId);
 
-    boolean delete(Integer id);
+    boolean delete(Integer id, int userId);
 
-    Schedule get(Integer id);
+    Schedule get(Integer id, int userId);
+
+    List<Schedule> getAll(int userId);
 
     List<Schedule> getAll();
 

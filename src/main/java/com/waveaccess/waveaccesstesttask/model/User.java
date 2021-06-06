@@ -31,6 +31,9 @@ public class User extends AbstractNamedEntity {
     @ManyToMany(mappedBy = "users")
     private Set<Talk> talks = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Schedule> schedules = new HashSet<>();
+
     public User() {
     }
 
@@ -75,6 +78,14 @@ public class User extends AbstractNamedEntity {
 
     public void setTalks(Set<Talk> talks) {
         this.talks = talks;
+    }
+
+    public Set<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(Set<Schedule> schedules) {
+        this.schedules = schedules;
     }
 
     @Override

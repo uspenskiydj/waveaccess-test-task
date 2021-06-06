@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static com.waveaccess.waveaccesstesttask.testdata.ScheduleTestData.*;
+import static com.waveaccess.waveaccesstesttask.testdata.UserTestData.SPEAKER_ID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -39,7 +40,7 @@ class ScheduleRestControllerTest extends AbstractControllerTest{
         perform(MockMvcRequestBuilders.delete(REST_URL + SCHEDULE2_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertThrows(NotFoundException.class, () -> service.get(SCHEDULE2_ID));
+        assertThrows(NotFoundException.class, () -> service.get(SCHEDULE2_ID, SPEAKER_ID));
     }
 
     @Test

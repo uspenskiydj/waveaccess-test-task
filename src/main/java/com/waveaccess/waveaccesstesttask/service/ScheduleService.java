@@ -19,22 +19,22 @@ public class ScheduleService {
         this.repository = repository;
     }
 
-    public Schedule create(Schedule schedule) {
-        log.info("create from {}", schedule);
+    public Schedule create(Schedule schedule, int userId) {
+        log.info("create from {} with userId={}", schedule, userId);
         Assert.notNull(schedule, "schedule must not be null");
         checkNew(schedule);
         checkIfBusyDateTime(schedule, getAllByRoom(schedule.getRoom()));
-        return repository.save(schedule);
+        return repository.save(schedule, userId);
     }
 
-    public void delete(Integer id) {
-        log.info("delete {}", id);
-        checkNotFoundWithId(repository.delete(id), id);
+    public void delete(Integer id, int userId) {
+        log.info("delete {} with userId={}", id, userId);
+        checkNotFoundWithId(repository.delete(id, userId), id);
     }
 
-    public Schedule get(Integer id) {
-        log.info("get {}", id);
-        return checkNotFoundWithId(repository.get(id), id);
+    public Schedule get(Integer id, int userId) {
+        log.info("get {} with userId={}", id, userId);
+        return checkNotFoundWithId(repository.get(id, userId), id);
     }
 
     public List<Schedule> getAll() {
@@ -42,16 +42,21 @@ public class ScheduleService {
         return repository.getAll();
     }
 
+    public List<Schedule> getAll(int userId) {
+        log.info("getAll with userId={}", userId);
+        return repository.getAll(userId);
+    }
+
     public List<Schedule> getAllByRoom(Room room) {
         log.info("getAllByRoom");
         return repository.getAllByRoom(room);
     }
 
-    public void update(Schedule schedule, int id) {
-        log.info("update {} with id={}", schedule, schedule.getId());
+    public void update(Schedule schedule, int id, int userId) {
+        log.info("update {} with id={} with userId={}", schedule, schedule.getId(), userId);
         Assert.notNull(schedule, "schedule must not be null");
         assureIdConsistent(schedule, id);
         checkIfBusyDateTime(schedule, getAllByRoom(schedule.getRoom()));
-        checkNotFoundWithId(repository.save(schedule), schedule.getId());
+        checkNotFoundWithId(repository.save(schedule, userId), schedule.getId());
     }
 }

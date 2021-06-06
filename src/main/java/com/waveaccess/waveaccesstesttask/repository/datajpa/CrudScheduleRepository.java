@@ -2,6 +2,7 @@ package com.waveaccess.waveaccesstesttask.repository.datajpa;
 
 import com.waveaccess.waveaccesstesttask.model.Room;
 import com.waveaccess.waveaccesstesttask.model.Schedule;
+import com.waveaccess.waveaccesstesttask.model.Talk;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,9 +15,11 @@ public interface CrudScheduleRepository extends JpaRepository<Schedule, Integer>
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM Schedule s WHERE s.id=:id")
-    int delete(@Param("id") Integer id);
+    int deleteByUserIdAndId(int userId, int id);
 
+    List<Schedule> findByUserId(int userId);
 
-    List<Schedule> getAllByRoom(@Param("room") Room room);
+    Schedule findByUserIdAndId(int userId, int id);
+
+    List<Schedule> getAllByRoom(Room room);
 }

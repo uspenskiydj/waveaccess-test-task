@@ -1,6 +1,7 @@
 package com.waveaccess.waveaccesstesttask.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -29,6 +30,12 @@ public class Schedule extends AbstractBaseEntity {
     @JoinColumn(name = "talk_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Talk talk;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
 
     public Schedule() {
     }
@@ -71,6 +78,14 @@ public class Schedule extends AbstractBaseEntity {
 
     public void setTalk(Talk talk) {
         this.talk = talk;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
