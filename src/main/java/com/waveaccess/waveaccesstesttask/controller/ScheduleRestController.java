@@ -16,7 +16,7 @@ import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.assureIdCons
 @RestController
 @RequestMapping(value = ScheduleRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ScheduleRestController {
-    static final String REST_URL = "/rest/profile/schedules";
+    static final String REST_URL = "/rest/schedules";
 
     @Autowired
     private ScheduleService service;

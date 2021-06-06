@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 import static com.waveaccess.waveaccesstesttask.security.SecurityUtil.authUserId;
 import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.assureIdConsistent;
@@ -18,24 +19,24 @@ import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.assureIdCons
 @RestController
 @RequestMapping(value = TalkRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class TalkRestController {
-    static final String REST_URL = "/rest/profile/talks";
+    static final String REST_URL = "/rest/talks";
 
     @Autowired
     private TalkService service;
 
     @GetMapping
     public List<Talk> getAll() {
-        return service.getAll();
+        return service.getAll(authUserId());
     }
 
     @GetMapping("/{id}")
     public Talk get(@PathVariable int id) {
-        return service.get(id);
+        return service.get(id, authUserId());
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Talk> createWithLocation(@Valid @RequestBody Talk talk) {
-        Talk created = service.create(talk);
+        Talk created = service.create(talk, authUserId());
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -45,12 +46,12 @@ public class TalkRestController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        service.delete(id);
+        service.delete(id, authUserId());
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody Talk talk, @PathVariable int id) {
-        service.update(talk, id);
+        service.update(talk, id, authUserId());
     }
 }

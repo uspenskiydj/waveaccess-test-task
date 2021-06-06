@@ -1,4 +1,4 @@
-GET http://localhost:8080/rest/admin/users
+GET http://localhost:8080/rest/admin/users --user admin@gmail.com:p1
 ###
 GET http://localhost:8080/rest/admin/users/100001
 ###

@@ -2,6 +2,7 @@ package com.waveaccess.waveaccesstesttask.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -11,13 +12,17 @@ public class Talk extends AbstractNamedEntity {
     @Column(name = "duration_minutes", nullable = false)
     private Integer durationMinutes;
 
-    @ManyToMany(mappedBy = "talks")
+    @ManyToMany()
+    @JoinTable(name = "user_talks",
+            joinColumns = @JoinColumn(name = "talk_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "talk_id"}, name = "user_talks_idx")})
     @JsonIgnore
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
-    @OneToMany(mappedBy = "talk", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "talk")
     @JsonIgnore
-    private Set<Schedule> schedules;
+    private Set<Schedule> schedules = new HashSet<>();
 
     public Talk() {
     }

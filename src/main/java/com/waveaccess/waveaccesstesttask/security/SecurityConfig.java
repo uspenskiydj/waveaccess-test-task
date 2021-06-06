@@ -31,20 +31,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 .antMatchers("/rest/profile/register").anonymous()
-                .antMatchers("/rest/admin/**").hasAuthority(Role.ADMIN.getAuthority())
+                .antMatchers(HttpMethod.GET, "/rest/room/**").authenticated()
 
-                .antMatchers(HttpMethod.GET,
-                        "/rest/room/**", "/rest/schedules", "/rest/talks").authenticated()
-                .antMatchers(HttpMethod.POST,
-                        "/rest/room/**", "/rest/schedules", "/rest/talks").hasAuthority(Role.ADMIN.getAuthority())
+                .antMatchers("/rest/admin/**", "/rest/room/**").hasAuthority(Role.ADMIN.getAuthority())
 
                 .antMatchers("/rest/admin/**").hasAuthority(Role.ADMIN.getAuthority())
-                .antMatchers("/login").permitAll()
-                .antMatchers("/").permitAll()
                 .antMatchers("/**").authenticated()
-        ;
 
-
+                .anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic();
     }
 
     @Override

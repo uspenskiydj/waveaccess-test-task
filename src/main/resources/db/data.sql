@@ -22,7 +22,7 @@ VALUES ('Доклад 1', 30),
 
 INSERT INTO user_talks(talk_id, user_id)
 VALUES (100006, 100000),
-       (100007, 100001),
+       (100007, 100002),
        (100008, 100002);
 
 INSERT INTO schedules(date_time, room_id, talk_id)

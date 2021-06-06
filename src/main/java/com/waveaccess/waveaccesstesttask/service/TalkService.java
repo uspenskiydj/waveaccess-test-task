@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import java.util.List;
+import java.util.Set;
 
 import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.*;
 
@@ -19,32 +20,32 @@ public class TalkService {
         this.repository = repository;
     }
 
-    public Talk create(Talk talk) {
-        log.info("create from {}", talk);
+    public Talk create(Talk talk, int userId) {
+        log.info("create from {} with userId={}", talk, userId);
         checkNew(talk);
         Assert.notNull(talk, "talk must not be null");
-        return repository.save(talk);
+        return repository.save(talk, userId);
     }
 
-    public void delete(Integer id) {
-        log.info("delete {}", id);
-        checkNotFoundWithId(repository.delete(id), id);
+    public void delete(Integer id, int userId) {
+        log.info("delete {} with userId={}", id, userId);
+        checkNotFoundWithId(repository.delete(id, userId), id);
     }
 
-    public Talk get(Integer id) {
-        log.info("get {}", id);
-        return checkNotFoundWithId(repository.get(id), id);
+    public Talk get(Integer id, int userId) {
+        log.info("get {} with userId={}", id, userId);
+        return checkNotFoundWithId(repository.get(id, userId), id);
     }
 
-    public List<Talk> getAll() {
-        log.info("getAll");
-        return repository.getAll();
+    public List<Talk> getAll(int userId) {
+        log.info("getAll with userId={}", userId);
+        return repository.getAll(userId);
     }
 
-    public void update(Talk talk, int id) {
-        log.info("update {} with id={}", talk, talk.getId());
+    public void update(Talk talk, int id, int userId) {
+        log.info("update {} with id={} with userId={}", talk, id, userId);
         Assert.notNull(talk, "talk must not be null");
         assureIdConsistent(talk, id);
-        checkNotFoundWithId(repository.save(talk), talk.getId());
+        checkNotFoundWithId(repository.save(talk, userId), id);
     }
 }

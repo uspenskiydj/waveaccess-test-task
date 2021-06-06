@@ -20,7 +20,7 @@ public class TalkTestData {
     }
 
     public static Talk getUpdated() {
-        Talk updated = new Talk(TALK1);
+        Talk updated = new Talk(TALK2);
         updated.setName("updatedName");
         updated.setDurationMinutes(55);
         return updated;

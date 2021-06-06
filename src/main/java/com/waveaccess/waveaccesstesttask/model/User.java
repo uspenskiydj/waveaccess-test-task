@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,12 +28,8 @@ public class User extends AbstractNamedEntity {
     @Column(name = "role")
     private Role role;
 
-    @ManyToMany
-    @JoinTable(name = "user_talks",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "talk_id"),
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "talk_id"}, name = "user_talks_idx")})
-    private Set<Talk> talks;
+    @ManyToMany(mappedBy = "users")
+    private Set<Talk> talks = new HashSet<>();
 
     public User() {
     }

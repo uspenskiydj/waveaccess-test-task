@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "schedules", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_time", "room_id"}, name = "date_time_rooms_idx")})
+@Table(name = "schedules")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Schedule extends AbstractBaseEntity {
 
@@ -21,12 +21,12 @@ public class Schedule extends AbstractBaseEntity {
     private LocalDateTime dateTime;
 
     @ManyToOne()
-    @JoinColumn(name = "room_id", nullable = false)
+    @JoinColumn(name = "room_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Room room;
 
     @ManyToOne()
-    @JoinColumn(name = "talk_id", nullable = false)
+    @JoinColumn(name = "talk_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Talk talk;
 
