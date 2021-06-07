@@ -13,9 +13,9 @@ public class UserTestData {
     public static final int SPEAKER_ID = START_SEQ + 2;
     public static final int NOT_FOUND = 10;
 
-    public static final User ADMIN = new User(ADMIN_ID, "Имя 1", "admin@gmail.com", "admin", Role.ADMIN);
-    public static final User LISTENER = new User(LISTENER_ID, "Имя 2", "listener@gmail.com", "listener",  Role.LISTENER);
-    public static final User SPEAKER = new User(SPEAKER_ID, "Имя 3", "speaker@gmail.com", "speaker", Role.SPEAKER);
+    public static final User ADMIN = new User(ADMIN_ID, "Name 1", "admin@gmail.com", "admin", Role.ADMIN);
+    public static final User LISTENER = new User(LISTENER_ID, "Name 2", "listener@gmail.com", "listener",  Role.LISTENER);
+    public static final User SPEAKER = new User(SPEAKER_ID, "Name 3", "speaker@gmail.com", "speaker", Role.SPEAKER);
 
     public static User getNew() {
         return new User(null, "newName", "new@gmail.com", "newPass", Role.LISTENER);

@@ -6,19 +6,19 @@ DELETE FROM users;
 ALTER SEQUENCE GLOBAL_SEQ RESTART WITH 100000;
 
 INSERT INTO users(name, email, password, role)
-VALUES ('Имя 1', 'admin@gmail.com', '{noop}admin', 'ADMIN'),
-       ('Имя 2', 'listener@gmail.com', '{noop}listener', 'LISTENER'),
-       ('Имя 3', 'speaker@gmail.com', '{noop}speaker', 'SPEAKER');
+VALUES ('Name 1', 'admin@gmail.com', '{noop}admin', 'ADMIN'),
+       ('Name 2', 'listener@gmail.com', '{noop}listener', 'LISTENER'),
+       ('Name 3', 'speaker@gmail.com', '{noop}speaker', 'SPEAKER');
 
 INSERT INTO rooms(name)
-VALUES ('Комната 1'),
-       ('Комната 2'),
-       ('Комната 3');
+VALUES ('Room 1'),
+       ('Room 2'),
+       ('Room 3');
 
 INSERT INTO talks(name, duration_minutes)
-VALUES ('Доклад 1', 30),
-       ('Доклад 2', 60),
-       ('Доклад 3', 90);
+VALUES ('Talk 1', 30),
+       ('Talk 2', 60),
+       ('Talk 3', 90);
 
 INSERT INTO user_talks(talk_id, user_id)
 VALUES (100006, 100000),

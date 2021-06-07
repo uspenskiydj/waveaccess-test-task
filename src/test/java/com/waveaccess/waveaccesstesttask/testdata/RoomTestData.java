@@ -11,9 +11,9 @@ public class RoomTestData {
     public static final int ROOM2_ID = START_SEQ + 4;
     public static final int ROOM3_ID = START_SEQ + 5;
 
-    public static final Room ROOM1 = new Room(ROOM1_ID, "Комната 1");
-    public static final Room ROOM2 = new Room(ROOM2_ID, "Комната 2");
-    public static final Room ROOM3 = new Room(ROOM3_ID, "Комната 3");
+    public static final Room ROOM1 = new Room(ROOM1_ID, "Room 1");
+    public static final Room ROOM2 = new Room(ROOM2_ID, "Room 2");
+    public static final Room ROOM3 = new Room(ROOM3_ID, "Room 3");
 
     public static Room getNew() {
         return new Room(null, "newName");
