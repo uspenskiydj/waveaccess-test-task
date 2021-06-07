@@ -11,7 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-
 import static com.waveaccess.waveaccesstesttask.security.SecurityUtil.authUserId;
 import static com.waveaccess.waveaccesstesttask.util.ValidationUtil.assureIdConsistent;
 

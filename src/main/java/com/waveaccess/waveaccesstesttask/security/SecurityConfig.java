@@ -29,15 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.
                 csrf().disable()
                 .authorizeRequests()
-
-                .antMatchers("/rest/profile/register").anonymous()
-                .antMatchers(HttpMethod.GET, "/rest/room/**").authenticated()
-
-                .antMatchers("/rest/admin/**", "/rest/room/**").hasAuthority(Role.ADMIN.getAuthority())
-
-                .antMatchers("/rest/admin/**").hasAuthority(Role.ADMIN.getAuthority())
-                .antMatchers("/**").authenticated()
-
+                .antMatchers("/rest/profile/register").permitAll()
+                .antMatchers(HttpMethod.GET, "/rest/schedules/all").authenticated()
+                .antMatchers("/rest/admin/**", "/rest/rooms/**").hasAuthority(Role.ADMIN.getAuthority())
+                .antMatchers("/rest/schedules/**", "/rest/talks/**")
+                    .hasAnyAuthority(Role.SPEAKER.getAuthority(),Role.ADMIN.getAuthority())
                 .anyRequest()
                 .authenticated()
                 .and()

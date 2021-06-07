@@ -6,9 +6,9 @@ DELETE FROM users;
 ALTER SEQUENCE GLOBAL_SEQ RESTART WITH 100000;
 
 INSERT INTO users(name, email, password, role)
-VALUES ('u1', 'admin@gmail.com', '{noop}p1', 'ADMIN'),
-       ('u2', 'listener@gmail.com', '{noop}p2', 'LISTENER'),
-       ('u3', 'speaker@gmail.com', '{noop}p3', 'SPEAKER');
+VALUES ('Имя 1', 'admin@gmail.com', '{noop}admin', 'ADMIN'),
+       ('Имя 2', 'listener@gmail.com', '{noop}listener', 'LISTENER'),
+       ('Имя 3', 'speaker@gmail.com', '{noop}speaker', 'SPEAKER');
 
 INSERT INTO rooms(name)
 VALUES ('Комната 1'),

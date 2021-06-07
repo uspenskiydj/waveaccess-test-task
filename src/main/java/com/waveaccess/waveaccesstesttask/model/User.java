@@ -26,7 +26,7 @@ public class User extends AbstractNamedEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private Role role;
+    private Role role = Role.LISTENER;
 
     @ManyToMany(mappedBy = "users")
     private Set<Talk> talks = new HashSet<>();
