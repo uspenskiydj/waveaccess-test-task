@@ -20,7 +20,8 @@ class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID)
+                .with(userAuth(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
@@ -28,14 +29,16 @@ class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + 1))
+        perform(MockMvcRequestBuilders.get(REST_URL + 1)
+                .with(userAuth(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + LISTENER_ID))
+        perform(MockMvcRequestBuilders.delete(REST_URL + LISTENER_ID)
+                .with(userAuth(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertThrows(NotFoundException.class, () -> service.get(LISTENER_ID));
@@ -43,14 +46,16 @@ class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     void deleteNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + 1))
+        perform(MockMvcRequestBuilders.delete(REST_URL + 1)
+                .with(userAuth(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userAuth(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));

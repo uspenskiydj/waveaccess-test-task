@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static com.waveaccess.waveaccesstesttask.testdata.RoomTestData.*;
+import static com.waveaccess.waveaccesstesttask.testdata.UserTestData.ADMIN;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -21,7 +22,8 @@ class RoomRestControllerTest extends AbstractControllerTest {
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + ROOM1_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL + ROOM1_ID)
+                .with(userAuth(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
@@ -29,14 +31,16 @@ class RoomRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + 1))
+        perform(MockMvcRequestBuilders.get(REST_URL + 1)
+                .with(userAuth(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + ROOM2_ID))
+        perform(MockMvcRequestBuilders.delete(REST_URL + ROOM2_ID)
+                .with(userAuth(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertThrows(NotFoundException.class, () -> service.get(ROOM2_ID));
@@ -44,14 +48,16 @@ class RoomRestControllerTest extends AbstractControllerTest {
 
     @Test
     void deleteNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + 1))
+        perform(MockMvcRequestBuilders.delete(REST_URL + 1)
+                .with(userAuth(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userAuth(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
